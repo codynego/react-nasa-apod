@@ -76,13 +76,13 @@ footer > div {
 
 .showleft {
   display: block;
-  animation: moveleft 2s forwards;
+  animation: moveleft 1s forwards;
 
 }
 
 .showright {
   display: block;
-  animation: moveright 3s forwards;
+  animation: moveright 1s forwards;
 }
 
 @keyframes moveleft {
@@ -111,7 +111,7 @@ footer > div {
   padding: 30px;
   right: 0px;
   background-color: black;
-  width: 50%;
+  width: 70%;
   height: 100%;
   overflow-y: scroll;
 }

@@ -4,44 +4,58 @@ import { Info } from './components/Info'
 import { Loader } from './components/Loader'
 
 function App() {
-  const [title, setTitle] = useState("")
   const [backgroundImage, setbackgroundImage] = useState("")
   const [infoBar, setInfoBar] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-  const [description, setDescription] = useState("")
+  const [nasaData, setNasaData] = useState({})
   const [date, setDate] = useState("")
+
+
+  async function fetchDataAPI () {
+      let localData = localStorage.getItem('nasaData')
+
+      if (!localData) {
+        await fetch_data()
+        return
+      }
+      console.log("fetched from local storage")
+      localData = JSON.parse(localData).nasaData
+      setNasaData(localData)
+    }
+  
+  function persistData(nasaData) {
+    localStorage.setItem('nasaData', JSON.stringify({nasaData: nasaData}))
+  }
 
   async function fetch_data() {
     const NASA_API_KEY = import.meta.env.VITE_META_API_KEY;
     const url = "https://api.nasa.gov/planetary/apod" + `?api_key=${NASA_API_KEY}`;
 
     try {
-      setIsLoading(true)
-      const response = await fetch(url)
-      const data = await response.json()
-      setTitle(data.title)
-      setDescription(data.explanation)
-      setbackgroundImage(data.hdurl)
-      setDate(data.date)
-      setIsLoading(false)
-    } catch {
-      console.log("error")
-    }
-
+        setIsLoading(true)
+        const response = await fetch(url)
+        const data = await response.json()
+        setNasaData(data)
+        persistData(data)
+        setIsLoading(false)
+        console.log("fetched from api")
+      } catch {
+        console.log("error")
+      }
   }
 
   useEffect(() => {
-    fetch_data()
+    fetchDataAPI()
   },[])
 
   return (
     <>
       {
         isLoading?<Loader/>
-        :<main style={{backgroundImage: `url(${backgroundImage})`}}>
-        <Info infoBar ={infoBar} setInfoBar={setInfoBar} title={title} date={date} description={description}/>
-        <Footer setInfoBar={setInfoBar} title={title}/>
+        :<main style={{backgroundImage: `url(${nasaData.hdurl})`}}>
+        <Info infoBar ={infoBar} setInfoBar={setInfoBar} title={nasaData.title} date={nasaData.date} description={nasaData.explanation}/>
+        <Footer setInfoBar={setInfoBar} title={nasaData.title}/>
       </main>
       }
     </>
