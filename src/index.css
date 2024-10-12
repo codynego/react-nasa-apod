@@ -1,0 +1,124 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: white;
+}
+
+main {
+  background-image: url('src/assets/pexels-alex-andrews-271121-816608.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+}
+
+footer {
+  position: fixed;
+  width: 100%;
+  height: 150px;
+  bottom: 0;
+  background-color: transparent;
+  padding: 10px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+}
+
+.info-main {
+  background-color: rgba(0, 0, 0, 0.757);
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  z-index: 1;
+  display: none;
+}
+
+.showleft {
+  display: block;
+  animation: moveleft 2s forwards;
+
+}
+
+.showright {
+  display: block;
+  animation: moveright 3s forwards;
+}
+
+@keyframes moveleft {
+  from {
+    transform: translateX(100vw);
+  }
+   to {
+    transform: translateX(0);
+   }
+}
+
+@keyframes moveright {
+  from {
+    transform: translateX(0);
+  }
+   to {
+    transform: translateX(100vw);
+   }
+}
+.info-main > div {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 30px;
+  right: 0px;
+  background-color: black;
+  width: 50%;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar p:nth-child(2) {
+  color: gray;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: 2px solid grey;
+}
+
+.sidebar p:last-child{
+  line-height: 25px;
+}
+
+
+button {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  display: flex;
+  justify-content: flex-start;
+  cursor: pointer;
+
+}
+
+button i {
+  color: white;
+  font-size: 20px;
+}
